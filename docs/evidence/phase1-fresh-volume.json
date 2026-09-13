@@ -1,0 +1,126 @@
+{
+    "started_at": "2026-09-13T03:36:08.293Z",
+    "runtime_label": "phase1-fresh",
+    "topology": "two databases / one PostgreSQL cluster",
+    "checks": [
+        {
+            "name": "All project services complete migrations",
+            "status": "passed",
+            "duration_ms": 134
+        },
+        {
+            "name": "Initialize two application schemas with owner RLS",
+            "status": "passed",
+            "duration_ms": 1554
+        },
+        {
+            "name": "Create S3 buckets and deny cross-project S3 credentials",
+            "status": "passed",
+            "duration_ms": 492
+        },
+        {
+            "name": "Every project DB credential cannot connect to other project/platform",
+            "status": "passed",
+            "duration_ms": 341
+        },
+        {
+            "name": "REST/owner roles cannot elevate to project service or cluster admin roles",
+            "status": "passed",
+            "duration_ms": 120
+        },
+        {
+            "name": "Phase 1: platform reader is read-only and project logins cannot enter platform DB",
+            "status": "passed",
+            "duration_ms": 138
+        },
+        {
+            "name": "Phase 1: passwords cannot impersonate any other project role",
+            "status": "passed",
+            "duration_ms": 359
+        },
+        {
+            "name": "alpha: real Auth signup/password login/refresh",
+            "status": "passed",
+            "duration_ms": 1429
+        },
+        {
+            "name": "alpha: REST access with same-project RLS and owner-spoof denial",
+            "status": "passed",
+            "duration_ms": 205
+        },
+        {
+            "name": "alpha: private upload/download/sign and same-project file denial",
+            "status": "passed",
+            "duration_ms": 3924
+        },
+        {
+            "name": "beta: real Auth signup/password login/refresh",
+            "status": "passed",
+            "duration_ms": 714
+        },
+        {
+            "name": "beta: REST access with same-project RLS and owner-spoof denial",
+            "status": "passed",
+            "duration_ms": 53
+        },
+        {
+            "name": "beta: private upload/download/sign and same-project file denial",
+            "status": "passed",
+            "duration_ms": 3316
+        },
+        {
+            "name": "JWT and API-key isolation both directions across REST/Auth/Storage",
+            "status": "passed",
+            "duration_ms": 113
+        },
+        {
+            "name": "alpha: Realtime delivers REST and SQL updates only to owner",
+            "status": "passed",
+            "duration_ms": 6369
+        },
+        {
+            "name": "beta: Realtime delivers REST and SQL updates only to owner",
+            "status": "passed",
+            "duration_ms": 6367
+        },
+        {
+            "name": "alpha: Realtime rejects token from the other project",
+            "status": "passed",
+            "duration_ms": 5021
+        },
+        {
+            "name": "beta: Realtime rejects token from the other project",
+            "status": "passed",
+            "duration_ms": 5016
+        },
+        {
+            "name": "SDK logout completes for all four end users",
+            "status": "passed",
+            "duration_ms": 228
+        }
+    ],
+    "replication_slots": [
+        {
+            "slot_name": "supabase_realtime_messages_replication_slot_alpha",
+            "database": "alpha",
+            "active": true
+        },
+        {
+            "slot_name": "supabase_realtime_messages_replication_slot_beta",
+            "database": "beta",
+            "active": true
+        },
+        {
+            "slot_name": "supabase_realtime_replication_slot_alpha",
+            "database": "alpha",
+            "active": true
+        },
+        {
+            "slot_name": "supabase_realtime_replication_slot_beta",
+            "database": "beta",
+            "active": true
+        }
+    ],
+    "status": "passed",
+    "finished_at": "2026-09-13T03:36:33.732Z"
+}

@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="th">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SiBase · Phase 0 Wireframes</title>
+    <style>
+        :root { font-family: ui-sans-serif, system-ui, sans-serif; color: #d8dedd; background: #101413; --line: #2b3430; --muted: #95a69c; --green: #80e6b2; }
+        * { box-sizing: border-box; }
+        body { margin: 0; }
+        button, select, input { font: inherit; }
+        button, select { cursor: pointer; }
+        button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+        .shell { min-height: 100vh; display: grid; grid-template-columns: 230px 1fr; }
+        aside { border-right: 1px solid var(--line); padding: 28px 16px; background: #141a17; }
+        .brand { font-size: 27px; letter-spacing: -.8px; margin: 0 10px 30px; font-weight: 700; color: #fff; }
+        .brand span { color: var(--green); }
+        .label { font-size: 11px; font-weight: 600; letter-spacing: 1.6px; color: var(--muted); margin: 22px 12px 10px; }
+        nav button { width: 100%; text-align: left; display: flex; gap: 14px; padding: 12px; border: 0; border-radius: 7px; background: transparent; color: var(--muted); margin: 3px 0; }
+        nav button[aria-current="page"] { background: #233b2d; color: var(--green); }
+        nav button:hover { background: #24302a; color: #fff; }
+        .nav-number { width: 20px; opacity: .65; font-size: 12px; padding-top: 2px; }
+        .side-note { margin: 36px 12px 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+        header { min-height: 76px; padding: 18px 34px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+        header select { background: #202a24; color: #e6ece8; border: 1px solid #3a4b40; border-radius: 6px; padding: 8px 28px 8px 12px; }
+        .crumb { color: var(--muted); font-size: 13px; }
+        .badge { font-size: 11px; border: 1px solid #3c5145; color: var(--green); border-radius: 20px; padding: 5px 10px; }
+        .prototype { margin-left: auto; background: #302b1c; border-color: #625331; color: #e7ca80; }
+        main { max-width: 1350px; padding: 38px 38px 72px; }
+        .intro { display: flex; gap: 20px; justify-content: space-between; align-items: start; margin-bottom: 28px; }
+        h1 { font-size: 30px; font-weight: 550; letter-spacing: -.8px; margin: 0 0 8px; color: #f3f7f4; }
+        h2 { margin: 0 0 15px; font-size: 17px; font-weight: 550; }
+        p { line-height: 1.8; }
+        .intro p { margin: 0; color: var(--muted); font-size: 14px; }
+        .action { border: 1px solid #87d6aa; background: var(--green); color: #10291a; border-radius: 6px; padding: 9px 14px; font-weight: 600; white-space: nowrap; }
+        .secondary { color: #d0ddd4; background: #1c2821; border-color: #3e5145; }
+        .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 25px; }
+        .card, .panel { border: 1px solid var(--line); border-radius: 9px; background: #171e1a; }
+        .card { padding: 19px; }
+        .card small { display: block; color: var(--muted); margin-bottom: 13px; }
+        .card strong { font-size: 27px; font-weight: 500; color: #ecf4ef; }
+        .card em { display: block; color: var(--green); font-size: 11px; font-style: normal; margin-top: 10px; }
+        .panel { padding: 23px; margin-bottom: 20px; }
+        .split { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; }
+        .muted { color: var(--muted); font-size: 13px; }
+        .row { display: flex; gap: 14px; align-items: center; justify-content: space-between; padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+        .row:last-child { border-bottom: 0; }
+        .dot { width: 7px; height: 7px; display: inline-block; border-radius: 50%; background: var(--green); margin-right: 7px; }
+        code, pre { font-family: ui-monospace, monospace; font-size: 12px; }
+        pre { overflow: auto; border: 1px solid var(--line); border-radius: 6px; padding: 18px; line-height: 1.9; color: #b3d9c3; background: #101612; }
+        .toolbar { display: flex; gap: 10px; margin-bottom: 20px; align-items: center; flex-wrap: wrap; }
+        input { padding: 9px 12px; border: 1px solid #3a4b40; border-radius: 5px; background: #111813; color: #eee; min-width: 180px; }
+        .table-scroll { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; }
+        th { padding: 14px; font-weight: 500; color: var(--muted); background: #1f2822; white-space: nowrap; }
+        td { padding: 16px 14px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+        .pill { padding: 4px 8px; border-radius: 5px; color: #a1dabc; background: #233b2d; font-size: 11px; }
+        .hint { margin-top: 18px; border-left: 2px solid #577b63; padding: 5px 15px; color: var(--muted); font-size: 13px; line-height: 1.8; }
+        .bar-chart { display: flex; gap: 8px; align-items: end; height: 104px; margin-top: 24px; }
+        .bar-chart i { flex: 1; background: #46785a; border-radius: 3px 3px 0 0; height: var(--h); }
+        .event { display: flex; gap: 15px; align-items: center; padding: 16px; border-bottom: 1px solid var(--line); font-size: 13px; }
+        .event time { color: var(--muted); font-family: monospace; }
+        [hidden] { display: none !important; }
+        #toast { position: fixed; right: 25px; bottom: 25px; padding: 14px 20px; background: #d6f5e1; color: #12341e; border-radius: 8px; max-width: calc(100vw - 50px); box-shadow: 0 10px 35px #0005; }
+        dialog { background: #1b251e; color: #edf5ef; border: 1px solid #47604e; border-radius: 10px; padding: 28px; max-width: 460px; width: calc(100vw - 40px); }
+        dialog::backdrop { background: #0009; }
+        dialog input { width: 100%; margin: 12px 0 24px; }
+        .links { display: flex; gap: 10px; flex-wrap: wrap; }
+        @media (max-width: 1000px) { .cards { grid-template-columns: repeat(2, 1fr); } .split { grid-template-columns: 1fr; } main { padding: 25px; } }
+        @media (max-width: 650px) { .shell { grid-template-columns: 1fr; } aside { padding: 16px; border-right: 0; border-bottom: 1px solid var(--line); } .brand { margin: 0 0 10px; } nav { display: flex; overflow-x: auto; } nav button { width: auto; white-space: nowrap; } .nav-number, .label, .side-note { display: none; } header { padding: 15px; } main { padding: 24px 15px; } h1 { font-size: 25px; } .intro { flex-wrap: wrap; } .prototype { margin-left: 0; } }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <aside>
+            <div class="brand">Si<span>Base</span><span aria-hidden="true"> ↗</span></div>
+            <div class="label">PROJECT WORKSPACE</div>
+            <nav aria-label="Project sections">
+                <button data-page="overview" aria-current="page"><span class="nav-number">01</span>Overview</button>
+                <button data-page="tables"><span class="nav-number">02</span>Table Editor</button>
+                <button data-page="auth"><span class="nav-number">03</span>Authentication</button>
+                <button data-page="storage"><span class="nav-number">04</span>Storage</button>
+                <button data-page="realtime"><span class="nav-number">05</span>Realtime</button>
+                <button data-page="api"><span class="nav-number">06</span>API Docs</button>
+                <button data-page="settings"><span class="nav-number">07</span>Settings</button>
+            </nav>
+            <div class="side-note">Phase 0 · Interaction prototype<br>ข้อมูลตัวอย่างสำหรับตรวจ workflow<br>ยังไม่เชื่อมกับบริการจริง</div>
+        </aside>
+        <div>
+            <header><span class="crumb">Internal workspace /</span><label><span class="sr-only" hidden>Project</span><select id="project" aria-label="Project"><option value="alpha">Task board · alpha</option><option value="beta">Team portal · beta</option></select></label><span class="badge">LOCAL</span><span class="badge prototype">WIREFRAME · SAMPLE DATA</span></header>
+            <main>
+                <section id="overview">
+                    <div class="intro"><div><h1>Your project, connected.</h1><p>ฐานข้อมูล ผู้ใช้ ไฟล์ และข้อมูลแบบเรียลไทม์ ในที่เดียว</p></div><button class="action" data-go="api">Connect your app ↗</button></div>
+                    <div class="cards"><div class="card"><small>Database</small><strong>2 tables</strong><em>● Available</em></div><div class="card"><small>Authentication</small><strong>4 users</strong><em>Email / password</em></div><div class="card"><small>Storage</small><strong>2.4 MB</strong><em>1 private bucket</em></div><div class="card"><small>Realtime</small><strong>2 clients</strong><em>1 enabled table</em></div></div>
+                    <div class="split"><div class="panel"><h2>Build your first workflow</h2><div class="row"><span>01 · Create a table</span><button class="action secondary" data-go="tables">Open editor</button></div><div class="row"><span>02 · Set up authentication</span><button class="action secondary" data-go="auth">View users</button></div><div class="row"><span>03 · Store your first file</span><button class="action secondary" data-go="storage">Open storage</button></div><div class="row"><span>04 · Listen for changes</span><button class="action secondary" data-go="realtime">Inspect events</button></div></div><div class="panel"><h2>Project services</h2><p class="muted">สถานะตัวอย่าง · ยังไม่มี live monitoring</p><div class="row">PostgreSQL <span><i class="dot"></i>Ready</span></div><div class="row">Auth & REST <span><i class="dot"></i>Ready</span></div><div class="row">Storage & Realtime <span><i class="dot"></i>Ready</span></div><div class="bar-chart" aria-label="Illustrative activity chart"><i style="--h:20%"></i><i style="--h:35%"></i><i style="--h:25%"></i><i style="--h:55%"></i><i style="--h:70%"></i><i style="--h:40%"></i><i style="--h:65%"></i><i style="--h:90%"></i><i style="--h:72%"></i><i style="--h:100%"></i></div></div></div>
+                </section>
+                <section id="tables" hidden>
+                    <div class="intro"><div><h1>Table Editor</h1><p>ออกแบบตารางและจัดการข้อมูลของโปรเจกต์</p></div><button class="action" id="new-table">+ New table</button></div>
+                    <div class="panel"><div class="toolbar"><span class="pill">public.tasks</span><span class="pill">RLS enabled</span><input id="filter" placeholder="Filter task titles…" aria-label="Filter task titles"></div><div class="table-scroll"><table><thead><tr><th>id · uuid</th><th>title · text</th><th>owner_id · uuid</th><th>deleted_at · timestamp</th></tr></thead><tbody id="task-rows"><tr><td>8b1e…409a</td><td>Connect the API</td><td>user-alice</td><td>NULL</td></tr><tr><td>5e2c…fd71</td><td>Add private attachments</td><td>user-alice</td><td>NULL</td></tr><tr><td>7d40…aae2</td><td>Subscribe to task updates</td><td>user-bob</td><td>NULL</td></tr></tbody></table></div><p class="hint">Developer view · หน้านี้เป็นสิทธิ์จัดการโปรเจกต์ การเรียกจากแอปจะเห็นแถวตาม RLS ของผู้ใช้</p></div>
+                </section>
+                <section id="auth" hidden>
+                    <div class="intro"><div><h1>Authentication</h1><p>ผู้ใช้แอปและการตั้งค่าการเข้าสู่ระบบ</p></div><button class="action" data-message="ตัวอย่างขั้นตอน: กรอกอีเมล → ส่งคำเชิญ → ผู้ใช้ตั้งรหัสผ่าน">+ Invite user</button></div>
+                    <div class="cards"><div class="card"><small>Registered users</small><strong>4</strong></div><div class="card"><small>Active sessions</small><strong>2</strong></div><div class="card"><small>Provider</small><strong>Email</strong></div><div class="card"><small>Token lifetime</small><strong>15 min</strong></div></div>
+                    <div class="panel table-scroll"><table><thead><tr><th>Email</th><th>Status</th><th>Provider</th><th>Last sign in</th></tr></thead><tbody><tr><td>alice@example.com</td><td><span class="pill">Confirmed</span></td><td>Email</td><td>2 minutes ago</td></tr><tr><td>bob@example.com</td><td><span class="pill">Confirmed</span></td><td>Email</td><td>5 minutes ago</td></tr><tr><td>carol@example.com</td><td>Pending</td><td>Email</td><td>—</td></tr><tr><td>dave@example.com</td><td>Invited</td><td>Email</td><td>—</td></tr></tbody></table></div><p class="hint">บัญชีเหล่านี้เป็นผู้ใช้แอป สมาชิกที่จัดการ workspace อยู่ใน Settings</p>
+                </section>
+                <section id="storage" hidden>
+                    <div class="intro"><div><h1>Storage</h1><p>ไฟล์ของโปรเจกต์และสิทธิ์ในการเปิดดู</p></div><button class="action" data-message="ตัวอย่างขั้นตอน: เลือกไฟล์ → ตรวจขนาด → แสดง upload progress">↑ Upload file</button></div>
+                    <div class="panel"><div class="toolbar"><span class="pill">private-files</span><span class="muted">/ user-alice /</span><span class="badge">PRIVATE</span></div><div class="table-scroll"><table><thead><tr><th>File</th><th>Size</th><th>Owner</th><th>Share</th></tr></thead><tbody><tr><td>project-brief.pdf</td><td>2.1 MB</td><td>Alice</td><td><button class="action secondary" data-message="ตัวอย่าง: สร้าง signed URL ที่มีอายุ 60 วินาที">Create link</button></td></tr><tr><td>notes.txt</td><td>0.3 MB</td><td>Alice</td><td><button class="action secondary" data-message="ตัวอย่าง: สร้าง signed URL ที่มีอายุ 60 วินาที">Create link</button></td></tr></tbody></table></div><p class="hint">ไฟล์ private ต้องมีสิทธิ์ หรือเปิดผ่าน signed URL ที่ยังไม่หมดอายุ</p></div>
+                </section>
+                <section id="realtime" hidden>
+                    <div class="intro"><div><h1>Realtime</h1><p>ตรวจการเปลี่ยนแปลงของตารางที่เปิดใช้งาน</p></div><button class="action" id="simulate">Simulate update</button></div>
+                    <div class="panel"><div class="toolbar"><span class="pill">public.tasks</span><span class="muted">UPDATE events · Preview as Alice</span></div><div id="events"><div class="event"><time>10:42:16</time><span class="pill">UPDATE</span><code>tasks / 8b1e…409a</code><span class="muted">title changed</span></div></div><p class="hint">ตัวอย่าง event stream · ผู้ใช้ต้องมีสิทธิ์อ่านแถว และ client ต้องโหลดข้อมูลใหม่หลัง reconnect</p></div>
+                </section>
+                <section id="api" hidden>
+                    <div class="intro"><div><h1>Connect your app</h1><p>เริ่มใช้งาน REST, Auth, Storage และ Realtime</p></div><button class="action" id="copy">Copy example</button></div>
+                    <div class="panel"><h2>Project endpoint</h2><pre id="endpoint">http://127.0.0.1:58101</pre><h2>JavaScript quickstart</h2><pre id="code">import { createClient } from '@supabase/supabase-js'
+
+const client = createClient(
+    'http://127.0.0.1:58101',
+    'YOUR_PROJECT_PUBLIC_KEY'
+)
+
+await client.auth.signInWithPassword({ email, password })
+const { data, error } = await client.from('tasks').select('*')</pre><p class="hint">ตัวอย่างนี้ใช้ placeholder · นำ public key ของโปรเจกต์มาใส่และเข้าสู่ระบบก่อนอ่านข้อมูลที่มี RLS</p></div>
+                </section>
+                <section id="settings" hidden>
+                    <div class="intro"><div><h1>Project settings</h1><p>ข้อมูลโปรเจกต์ สมาชิก และการเข้าถึงสำหรับบริการ</p></div><button class="action" data-message="บันทึกเป็นตัวอย่างเท่านั้น ยังไม่เปลี่ยนค่าของระบบจริง">Save changes</button></div>
+                    <div class="panel"><h2>General</h2><div class="row">Project reference <code id="reference">alpha</code></div><div class="row">Environment <span>Local development</span></div><div class="row">Workspace owner <span>owner@example.com</span></div></div><div class="panel"><h2>API keys</h2><div class="row"><span>Public key · ใช้ระบุโปรเจกต์</span><code>YOUR_PROJECT_PUBLIC_KEY</code></div><div class="row"><span>Server secret · สำหรับ backend</span><span>••••••••••••</span></div><p class="hint">การหมุน key ต้องระบุผลกระทบต่อแอปและช่วงเปลี่ยนผ่านก่อนยืนยัน</p></div>
+                </section>
+            </main>
+        </div>
+    </div>
+    <dialog id="table-dialog"><form method="dialog"><h2>Create a table</h2><p class="muted">ทดลองขั้นตอนใน wireframe</p><label for="table-name">Table name</label><input id="table-name" required pattern="[a-z][a-z0-9_]*" placeholder="project_notes"><div class="links"><button class="action" value="create">Create preview</button><button class="action secondary" value="cancel" formnovalidate>Cancel</button></div></form></dialog>
+    <div id="toast" role="status" hidden></div>
+    <script>
+        const pages = [...document.querySelectorAll('main > section')];
+        const toast = document.querySelector('#toast');
+        let toastTimer;
+        function notify(message) { toast.textContent = message; toast.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => { toast.hidden = true; }, 4500); }
+        function showPage(id) {
+            if (!pages.some(page => page.id === id)) id = 'overview';
+            pages.forEach(page => { page.hidden = page.id !== id; });
+            document.querySelectorAll('nav button').forEach(button => { if (button.dataset.page === id) button.setAttribute('aria-current', 'page'); else button.removeAttribute('aria-current'); });
+            history.replaceState(null, '', '#' + id);
+        }
+        document.querySelectorAll('[data-page]').forEach(button => button.addEventListener('click', () => showPage(button.dataset.page)));
+        document.querySelectorAll('[data-go]').forEach(button => button.addEventListener('click', () => showPage(button.dataset.go)));
+        document.querySelectorAll('[data-message]').forEach(button => button.addEventListener('click', () => notify(button.dataset.message)));
+        document.querySelector('#project').addEventListener('change', event => {
+            const name = event.target.value;
+            const url = 'http://127.0.0.1:' + (name === 'alpha' ? 58101 : 58102);
+            document.querySelector('#endpoint').textContent = url;
+            document.querySelector('#reference').textContent = name;
+            document.querySelector('#code').textContent = document.querySelector('#code').textContent.replace(/http:\/\/127\.0\.0\.1:\d+/g, url);
+            notify('Project: ' + name + ' · ข้อมูลหน้าจอยังเป็นตัวอย่าง');
+        });
+        document.querySelector('#filter').addEventListener('input', event => document.querySelectorAll('#task-rows tr').forEach(row => { row.hidden = !row.textContent.toLowerCase().includes(event.target.value.toLowerCase()); }));
+        document.querySelector('#simulate').addEventListener('click', () => {
+            const row = document.createElement('div'); row.className = 'event';
+            const time = document.createElement('time'); time.textContent = new Date().toLocaleTimeString('en-GB');
+            const kind = document.createElement('span'); kind.className = 'pill'; kind.textContent = 'UPDATE';
+            const detail = document.createElement('code'); detail.textContent = 'tasks / simulated title update';
+            row.append(time, kind, detail); document.querySelector('#events').prepend(row);
+        });
+        document.querySelector('#copy').addEventListener('click', async () => { try { await navigator.clipboard.writeText(document.querySelector('#code').textContent); notify('Copied example'); } catch { notify('เลือกและคัดลอกข้อความจาก code block ได้เลย'); } });
+        const dialog = document.querySelector('#table-dialog');
+        document.querySelector('#new-table').addEventListener('click', () => { dialog.returnValue = ''; dialog.showModal(); });
+        dialog.addEventListener('close', () => { if (dialog.returnValue === 'create') notify('Preview: public.' + document.querySelector('#table-name').value + ' · ยังไม่สร้างตารางจริง'); });
+        showPage(location.hash.slice(1));
+    </script>
+</body>
+</html>

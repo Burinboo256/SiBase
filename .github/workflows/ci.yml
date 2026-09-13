@@ -1,0 +1,33 @@
+name: Verify
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  phase1:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Build the locked development toolchain
+        run: make setup
+      - name: Lint, types, unit tests and builds
+        run: make check
+      - name: Fresh local stack
+        run: make dev
+      - name: Data-plane and platform isolation
+        run: make integration
+      - name: Dashboard to Control API smoke
+        run: make smoke
+      - name: Stop/start persistence
+        run: make lifecycle
+      - name: Sanitized diagnostics
+        if: failure()
+        run: make logs
+      - name: Stop stack without deleting volumes
+        if: always()
+        run: make stop

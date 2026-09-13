@@ -1,0 +1,62 @@
+{
+    "persistence": "passed",
+    "shutdown": "passed",
+    "services": [
+        {
+            "service": "api",
+            "exit_code": 0
+        },
+        {
+            "service": "auth-alpha",
+            "exit_code": 0
+        },
+        {
+            "service": "auth-beta",
+            "exit_code": 0
+        },
+        {
+            "service": "dashboard",
+            "exit_code": 143
+        },
+        {
+            "service": "db",
+            "exit_code": 0
+        },
+        {
+            "service": "gateway",
+            "exit_code": 0
+        },
+        {
+            "service": "platform-db",
+            "exit_code": 0
+        },
+        {
+            "service": "realtime-alpha",
+            "exit_code": 0
+        },
+        {
+            "service": "realtime-beta",
+            "exit_code": 0
+        },
+        {
+            "service": "rest-alpha",
+            "exit_code": 255
+        },
+        {
+            "service": "rest-beta",
+            "exit_code": 255
+        },
+        {
+            "service": "s3",
+            "exit_code": 0
+        },
+        {
+            "service": "storage-alpha",
+            "exit_code": 0
+        },
+        {
+            "service": "storage-beta",
+            "exit_code": 0
+        }
+    ]
+}

@@ -1,0 +1,27 @@
+[project]
+name = "sibase"
+version = "0.1.0"
+requires-python = ">=3.13"
+
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+extend-exclude = ["poc", ".local", "scripts/phase0.py"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.13"
+mypy_path = "src"
+strict = true
+files = ["src/sibase"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests/backend"]
+pythonpath = ["src", "scripts"]
+addopts = "-q --cov=sibase --cov-report=term-missing --cov-fail-under=80"
+
+[tool.coverage.run]
+source = ["src/sibase"]

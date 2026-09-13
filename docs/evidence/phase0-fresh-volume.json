@@ -1,0 +1,116 @@
+{
+    "started_at": "2026-09-13T02:45:07.419Z",
+    "runtime_label": "fresh-volume",
+    "topology": "two databases / one PostgreSQL cluster",
+    "checks": [
+        {
+            "name": "All project services complete migrations",
+            "status": "passed",
+            "duration_ms": 90
+        },
+        {
+            "name": "Initialize two application schemas with owner RLS",
+            "status": "passed",
+            "duration_ms": 1531
+        },
+        {
+            "name": "Create S3 buckets and deny cross-project S3 credentials",
+            "status": "passed",
+            "duration_ms": 518
+        },
+        {
+            "name": "Every project DB credential cannot connect to other project/platform",
+            "status": "passed",
+            "duration_ms": 135
+        },
+        {
+            "name": "REST/owner roles cannot elevate to project service or cluster admin roles",
+            "status": "passed",
+            "duration_ms": 57
+        },
+        {
+            "name": "alpha: real Auth signup/password login/refresh",
+            "status": "passed",
+            "duration_ms": 650
+        },
+        {
+            "name": "alpha: REST CRUD with same-project RLS and owner-spoof denial",
+            "status": "passed",
+            "duration_ms": 58
+        },
+        {
+            "name": "alpha: private upload/download/sign and same-project file denial",
+            "status": "passed",
+            "duration_ms": 3320
+        },
+        {
+            "name": "beta: real Auth signup/password login/refresh",
+            "status": "passed",
+            "duration_ms": 607
+        },
+        {
+            "name": "beta: REST CRUD with same-project RLS and owner-spoof denial",
+            "status": "passed",
+            "duration_ms": 46
+        },
+        {
+            "name": "beta: private upload/download/sign and same-project file denial",
+            "status": "passed",
+            "duration_ms": 3262
+        },
+        {
+            "name": "JWT and API-key isolation both directions across REST/Auth/Storage",
+            "status": "passed",
+            "duration_ms": 58
+        },
+        {
+            "name": "alpha: Realtime delivers REST and SQL updates only to owner",
+            "status": "passed",
+            "duration_ms": 6310
+        },
+        {
+            "name": "beta: Realtime delivers REST and SQL updates only to owner",
+            "status": "passed",
+            "duration_ms": 6307
+        },
+        {
+            "name": "alpha: Realtime rejects token from the other project",
+            "status": "passed",
+            "duration_ms": 5018
+        },
+        {
+            "name": "beta: Realtime rejects token from the other project",
+            "status": "passed",
+            "duration_ms": 5014
+        },
+        {
+            "name": "SDK logout completes for all four end users",
+            "status": "passed",
+            "duration_ms": 154
+        }
+    ],
+    "replication_slots": [
+        {
+            "slot_name": "supabase_realtime_messages_replication_slot_alpha",
+            "database": "alpha",
+            "active": true
+        },
+        {
+            "slot_name": "supabase_realtime_messages_replication_slot_beta",
+            "database": "beta",
+            "active": true
+        },
+        {
+            "slot_name": "supabase_realtime_replication_slot_alpha",
+            "database": "alpha",
+            "active": true
+        },
+        {
+            "slot_name": "supabase_realtime_replication_slot_beta",
+            "database": "beta",
+            "active": true
+        }
+    ],
+    "status": "passed",
+    "finished_at": "2026-09-13T02:45:30.152Z"
+}

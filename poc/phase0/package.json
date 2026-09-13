@@ -1,0 +1,11 @@
+{
+    "name": "sibase-phase0-contract-tests",
+    "private": true,
+    "type": "module",
+    "scripts": { "test": "node verify.mjs" },
+    "dependencies": {
+        "@supabase/supabase-js": "2.116.0",
+        "@aws-sdk/client-s3": "3.883.0",
+        "pg": "8.16.3"
+    }
+}
