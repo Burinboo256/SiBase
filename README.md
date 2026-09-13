@@ -2,7 +2,7 @@
 
 แพลตฟอร์ม Backend-as-a-Service ที่วางแผนรวม PostgreSQL, Authentication, REST APIs, Storage และ Realtime พร้อม Dashboard
 
-**Phase 1 ใช้งานแบบ local ได้แล้ว** (13 กันยายน 2026): Dashboard เชื่อม FastAPI แสดงสถานะจริงของโปรเจกต์ Alpha/Beta พร้อม platform database แยก, migrations และ workflow ทดสอบ ยังไม่ใช่ production และยังรอผล CI บน GitHub ก่อนปิดเกณฑ์ Phase 1
+**Phase 1 ผ่านแล้ว** (13 กันยายน 2026): Dashboard เชื่อม FastAPI แสดงสถานะจริงของ Alpha/Beta พร้อม platform database แยก, migrations และ workflow ทดสอบ ผ่านทั้ง local checks และ [GitHub CI จาก fresh checkout](https://github.com/Burinboo256/SiBase/actions/runs/34765727009) ยังไม่ใช่ production และยังไม่เริ่ม Phase 2
 
 ## เริ่ม Phase 1
 
@@ -33,7 +33,7 @@ Stack `sibase-dev` แยกจาก Phase 0; secrets อยู่ `.local/siba
 
 - [Development roadmap](docs/development-roadmap.md) — phases และเกณฑ์ตรวจรับ
 - [Development guide](docs/development.md) — setup, commands, coding/testing และ configuration
-- [Phase 1 report](docs/phase1-report.md) — สิ่งที่ส่งมอบ ผลตรวจ local และ CI ที่ยังรอยืนยัน
+- [Phase 1 report](docs/phase1-report.md) — สิ่งที่ส่งมอบ ผลตรวจ local/GitHub CI และข้อจำกัด
 - [Product scope](docs/product-scope.md) — MVP, workload, pilot และ recovery targets
 - [Architecture](docs/architecture.md) — ขอบเขตบริการและสิทธิ์
 - [Phase 0 report](docs/phase0-report.md) — หลักฐาน ผลทดสอบ และข้อจำกัด

@@ -1,0 +1,101 @@
+{
+    "run_id": 34765727009,
+    "commit": "2bf0b1431f02f8f499f6dd41986e2db668453322",
+    "url": "https://github.com/Burinboo256/SiBase/actions/runs/34765727009",
+    "runner": "ubuntu-24.04",
+    "status": "completed",
+    "conclusion": "success",
+    "started_at": "2026-09-13T15:28:58Z",
+    "completed_at": "2026-09-13T15:32:34Z",
+    "tests": {
+        "backend_passed": 39,
+        "frontend_passed": 7,
+        "integration_groups_passed": 19
+    },
+    "steps": [
+        {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-09-13T15:28:58Z",
+            "completed_at": "2026-09-13T15:28:59Z"
+        },
+        {
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-09-13T15:28:59Z",
+            "completed_at": "2026-09-13T15:28:59Z"
+        },
+        {
+            "name": "Build the locked development toolchain",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-09-13T15:28:59Z",
+            "completed_at": "2026-09-13T15:29:17Z"
+        },
+        {
+            "name": "Lint, types, unit tests and builds",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-09-13T15:29:17Z",
+            "completed_at": "2026-09-13T15:30:03Z"
+        },
+        {
+            "name": "Fresh local stack",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-09-13T15:30:03Z",
+            "completed_at": "2026-09-13T15:30:57Z"
+        },
+        {
+            "name": "Data-plane and platform isolation",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-09-13T15:30:57Z",
+            "completed_at": "2026-09-13T15:31:32Z"
+        },
+        {
+            "name": "Dashboard to Control API smoke",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-09-13T15:31:32Z",
+            "completed_at": "2026-09-13T15:31:33Z"
+        },
+        {
+            "name": "Stop/start persistence",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-09-13T15:31:33Z",
+            "completed_at": "2026-09-13T15:32:12Z"
+        },
+        {
+            "name": "Sanitized diagnostics",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-09-13T15:32:12Z",
+            "completed_at": "2026-09-13T15:32:12Z"
+        },
+        {
+            "name": "Stop stack without deleting volumes",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-09-13T15:32:12Z",
+            "completed_at": "2026-09-13T15:32:33Z"
+        },
+        {
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-09-13T15:32:33Z",
+            "completed_at": "2026-09-13T15:32:33Z"
+        },
+        {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-09-13T15:32:33Z",
+            "completed_at": "2026-09-13T15:32:33Z"
+        }
+    ]
+}

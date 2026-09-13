@@ -1,6 +1,6 @@
 # SiBase — แผนพัฒนาแพลตฟอร์มแบบ Supabase
 
-สถานะ: Phase 0 ผ่านแล้ว; Phase 1 ทำงานและผ่าน local checks แล้ว รอ GitHub CI; Phase 2–9 ยังไม่เริ่ม · ปรับปรุง: 13 กันยายน 2026
+สถานะ: Phase 0–1 ผ่านแล้ว รวม GitHub CI จาก fresh checkout; Phase 2–9 ยังไม่เริ่ม · ปรับปรุง: 13 กันยายน 2026
 
 ## 1. เป้าหมายและขอบเขต
 
@@ -114,13 +114,13 @@ Gateway ต้องเลือกโปรเจกต์จาก routing ท
 - [x] ตั้ง Ruff, ESLint, Prettier, type checking และ CI workflow สำหรับ lint/unit/integration tests
 - [x] ตั้ง structured logs พร้อม request ID และการปิดบัง secrets
 - [x] จัดทำ README และคำสั่งมาตรฐานสำหรับ setup/dev/test/build
-- [ ] ยืนยันผล workflow บน GitHub CI จาก fresh checkout (ผู้ใช้อนุมัติ commit/push แล้ว)
+- [x] ยืนยันผล workflow บน GitHub CI จาก fresh checkout: [run 34765727009](https://github.com/Burinboo256/SiBase/actions/runs/34765727009), commit `2bf0b14`
 
 **ส่งมอบ:** แอปโครงร่างและ local stack ที่เริ่มจาก fresh checkout ได้
 
 **เกณฑ์ผ่าน:** เริ่มระบบตาม README ได้โดยไม่แก้ไฟล์ source; Dashboard ติดต่อ health endpoint ได้ และ CI ผ่าน
 
-**ผลปัจจุบัน:** Local checks และการเริ่มด้วย volumes ใหม่ผ่านแล้ว; ทดสอบหยุด/เปิดเก็บข้อมูลเดิมและตรวจ Dashboard ใน Safari แล้ว ยังไม่ถือว่าปิด Phase 1 ทั้งหมด เพราะ workflow ยังไม่ได้รันบน GitHub และยังไม่มี fresh checkout จาก commit ที่เผยแพร่ ดูหลักฐาน/ข้อจำกัดใน [รายงาน Phase 1](phase1-report.md)
+**ผลตรวจรับ:** ผ่าน Phase 1 สำหรับ local development: local checks, fresh-volume bootstrap, stop/start persistence และ GitHub CI จาก fresh checkout ผ่านทั้งหมด แก้ข้อพบเรื่องเลือกพอร์ตผิด stack และรอ Dashboard พร้อม regression tests แล้ว ดูหลักฐาน/ข้อจำกัดใน [รายงาน Phase 1](phase1-report.md) ยังไม่ใช่ production acceptance และยังไม่เริ่ม Phase 2
 
 ## Phase 2 — Workspace และ Project Provisioning
 

@@ -2,7 +2,9 @@
 
 วันที่ตรวจ: 13 กันยายน 2026 · กลุ่มเป้าหมาย: ทีมภายในสร้างแอปและระบบงาน
 
-สถานะ: **ใช้งานและผ่าน local checks แล้ว; รอ GitHub CI ก่อนปิด Phase 1** ผู้ใช้อนุมัติ commit/push แล้ว; ผล remote runner ยังรอยืนยัน
+สถานะ: **Phase 1 ผ่านแล้ว** ทั้ง local checks และ GitHub CI จาก fresh checkout หลังผู้ใช้อนุมัติ commit/push; Phase 2 ยังไม่เริ่ม
+
+Baseline ที่ตรวจรับ: commit `2bf0b1431f02f8f499f6dd41986e2db668453322` ผ่าน [GitHub Actions run 34765727009](https://github.com/Burinboo256/SiBase/actions/runs/34765727009) บน `ubuntu-24.04` วันที่ 13 กันยายน 2026 เวลา 22:32 น. (Asia/Bangkok), job ใช้เวลา 3 นาที 36 วินาที [หลักฐาน CI](evidence/phase1-github-ci.json) บันทึก commit, เวลา, gates และผลจาก GitHub
 
 ## สิ่งที่ส่งมอบ
 
@@ -27,11 +29,11 @@
 | Stop/start | แถว sentinel 2 แถวและ S3 objects 2 ไฟล์ยังตรงเดิม; ไม่พบ exit 137 |
 | Phase 0 regression | 17/17 หลังปรับ shared generator/test runner |
 | Safari desktop | ตรวจ Overview, Alpha/Beta selection, refresh timestamp, planned Database page และเปิด Swagger UI ได้ |
-| GitHub CI | สร้าง workflow แล้ว แต่ยังไม่ได้รันบน GitHub |
+| GitHub CI | ผ่าน: locked toolchain, lint/types/unit/build, fresh stack, integration/isolation, smoke, stop/start และ cleanup |
 
 หลักฐาน: [fresh-volume integration](evidence/phase1-fresh-volume.json), [lifecycle exit codes](evidence/phase1-lifecycle.json) ผล runtime ล่าสุดอยู่ `.local/<stack>/` และไม่ควรเผยแพร่โฟลเดอร์ทั้งชุด
 
-ใช้ namespace ใหม่ `sibase-phase1-fresh` พร้อมพอร์ต 58300/58310/58301/58302 โดยตรวจว่าไม่มี named volumes ก่อนเริ่ม และ Docker สร้าง volumes ใหม่จริง ทดสอบจาก source ปัจจุบัน ไม่ใช่ fresh checkout จาก published commit หลังทดสอบหยุดเฉพาะ stack นี้และเก็บ volumes ไว้; `sibase-dev` ยังเปิดให้ทดลอง
+การทดสอบ local ใช้ namespace ใหม่ `sibase-phase1-fresh` พร้อมพอร์ต 58300/58310/58301/58302 โดยตรวจว่าไม่มี named volumes ก่อนเริ่ม และ Docker สร้าง volumes ใหม่จริง หลังทดสอบหยุดเฉพาะ stack นี้และเก็บ volumes ไว้; `sibase-dev` ยังเปิดให้ทดลอง ต่อมารอบ CI ยืนยันเพิ่มจาก fresh checkout ของ published commit บน runner ใหม่ โดยผ่าน 39 backend tests, 7 frontend tests และ 19 integration groups
 
 ## ปัญหาที่พบและแก้ในรอบนี้
 
@@ -53,8 +55,10 @@ Health probes ไม่ใช่หลักฐานว่า operations ทุ
 
 พบ deprecation warnings จาก Starlette/AnyIO test helpers และ transitive `uuid` ใน data-plane test runner แต่ไม่มี test failure ต้องประเมิน dependency updates/SBOM ก่อนเผยแพร่
 
+GitHub ยังแจ้ง deprecation warning ของ Node 20 ใน pinned `actions/checkout` และรัน action ด้วย Node 24 แทน; workflow ผ่าน แต่ควรอัปเดต action pin ในรอบบำรุงรักษา ไม่ใช่ปัญหาของ Node 22 ที่ใช้รัน Dashboard
+
 ## เริ่มใช้งานและงานต่อไป
 
 ดู [Development Guide](development.md) และ [README](../README.md) เปิด Dashboard ที่ http://127.0.0.1:58200 ใช้ `make stop` เพื่อหยุดโดยไม่ลบข้อมูล ห้ามเปิดพอร์ตให้เครื่องอื่นเข้าถึงขณะยังไม่มี platform identity
 
-ขั้นถัดไปเพื่อปิด Phase 1 คือตรวจ GitHub workflow จาก fresh checkout ตามการอนุมัติ commit/push เมื่อผ่านจึงเริ่ม Phase 2: platform identity, workspace/membership, project registry และ provisioning jobs ตาม [roadmap](development-roadmap.md) โดยยังไม่เริ่มงานเหล่านี้ใน Phase 1
+พร้อมเริ่ม Phase 2 เมื่อผู้ใช้สั่ง: platform identity, workspace/membership, project registry และ provisioning jobs ตาม [roadmap](development-roadmap.md) โดยยังไม่เริ่มงานเหล่านี้ใน Phase 1
