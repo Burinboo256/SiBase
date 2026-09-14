@@ -18,6 +18,10 @@ mypy_path = "src"
 strict = true
 files = ["src/sibase"]
 
+[[tool.mypy.overrides]]
+module = ["docker.*", "boto3.*", "botocore.*"]
+ignore_missing_imports = true
+
 [tool.pytest.ini_options]
 testpaths = ["tests/backend"]
 pythonpath = ["src", "scripts"]

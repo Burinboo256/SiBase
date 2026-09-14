@@ -1,0 +1,19 @@
+{
+    "checks": [
+        "Opt-in project hardened without modifying Phase 2 projects",
+        "Two email confirmations, unconfirmed-login denial and one-time verification links",
+        "Owner-row CRUD, owner spoofing/transfer denial, anonymous denial and explicit server bypass",
+        "JWT expiry, issuer/audience binding and app-token denial at Control API",
+        "Future tables default-deny, owner cannot disable forced RLS, cross-project JWT denied",
+        "Refresh rotation and grandparent-token reuse revoke the session family",
+        "Logout revokes refresh tokens; existing access JWT remains valid until expiry",
+        "Recovery email, password change, old-password rejection and recovery-link replay denial",
+        "Sanitized user/session snapshots and live RLS/runtime-role metadata",
+        "Signing rotation invalidates old JWTs, preserves opaque API keys and allows refresh reauthentication"
+    ],
+    "project": {
+        "id": "7ec397909c0c45f6aa931a522faf8b66",
+        "ref": "p_c173ded46ead48a3"
+    },
+    "auth_image": "supabase/gotrue:v2.196.0@sha256:c0c25187a6b835e65a6f6e6c6b39d090e832d40e6de5186f2c038e0411944232"
+}

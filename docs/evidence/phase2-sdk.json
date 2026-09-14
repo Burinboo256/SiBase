@@ -1,0 +1,15 @@
+{
+    "sdk": "2.116.0",
+    "checks": [
+        "Operations: SDK REST and app Auth signup",
+        "Operations: app JWT rejected by another project",
+        "Operations: SDK private Storage upload/download and signed URL",
+        "Operations: SDK anonymous Realtime subscribe and broadcast",
+        "Operations: revoke closes existing Realtime connection and denies HTTP",
+        "Inventory: SDK REST and app Auth signup",
+        "Inventory: app JWT rejected by another project",
+        "Inventory: SDK private Storage upload/download and signed URL",
+        "Inventory: SDK anonymous Realtime subscribe and broadcast",
+        "Inventory: revoke closes existing Realtime connection and denies HTTP"
+    ]
+}

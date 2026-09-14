@@ -1,4 +1,4 @@
-# Third-party Components — Phase 0–1
+# Third-party Components — Phase 0–3
 
 ตรวจ source/version วันที่ 12–13 กันยายน 2026 ตารางนี้เป็น inventory ของ upstream หลัก ไม่ใช่ SBOM ครบทุก package ใน container
 
@@ -37,3 +37,7 @@ Npm dependencies และ transitive dependencies ถูก lock ใน [packag
 Python dependencies พร้อม hashes อยู่ใน [requirements.lock](../requirements.lock) และ [requirements-dev.lock](../requirements-dev.lock); frontend อยู่ใน [package-lock.json](../src/dashboard/package-lock.json) การตรวจ licenses/transitive notices และ security audit ครบชุดยังเป็นงานก่อนเผยแพร่
 
 ยังไม่กำหนด license สำหรับโค้ด SiBase; ให้เจ้าของโครงการกำหนดก่อนเผยแพร่ source/package สู่ภายนอก
+
+## Phase 3 local email testing
+
+ใช้ Mailpit `v1.31.1` image digest `sha256:98b916bd3c8d61f7633a52d3ea2f58d00620cb01ca57ab59edde68c347a95365` โดย pin ใน `scripts/phase2.py` ตรวจและทดสอบ local วันที่ 14 กันยายน 2026 ดู [official Docker configuration](https://mailpit.axllent.org/docs/install/docker/) เพิ่ม component นี้ใน SBOM/license/security review ก่อนแจกจ่าย; ไม่ใช่ production mail delivery service

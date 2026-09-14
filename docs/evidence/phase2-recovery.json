@@ -1,0 +1,21 @@
+{
+    "exit_code": 91,
+    "checkpoint": "database",
+    "recovered_status": "ready",
+    "same_database_oids": true,
+    "same_container_ids": true,
+    "resources": {
+        "containers": [
+            "084d1f584b94 sibase-control-realtime-p_89904caec1e44c21",
+            "4d99c1a9a2d9 sibase-control-s3-p_89904caec1e44c21",
+            "693b9690bffa sibase-control-storage-p_89904caec1e44c21",
+            "daaa6e555c90 sibase-control-rest-p_89904caec1e44c21",
+            "e1981cc49ec6 sibase-control-auth-p_89904caec1e44c21"
+        ],
+        "databases": [
+            "16393|p_89904caec1e44c21",
+            "17670|p_d73cea60275b4b07",
+            "5|postgres"
+        ]
+    }
+}

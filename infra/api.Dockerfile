@@ -7,6 +7,7 @@ RUN pip install --no-cache-dir --require-hashes -r requirements.lock
 COPY src/sibase src/sibase
 COPY migrations migrations
 COPY alembic.ini .
+COPY alembic-control.ini .
 RUN useradd --uid 10001 --create-home sibase
 USER sibase
 CMD ["uvicorn", "sibase.main:create_app", "--factory", "--host", "0.0.0.0", "--port", "8000", "--no-access-log"]

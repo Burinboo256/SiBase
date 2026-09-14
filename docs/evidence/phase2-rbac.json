@@ -1,0 +1,9 @@
+{
+    "checks": [
+        "Membership removal takes effect on an existing authenticated session",
+        "viewer: real platform login and expected management permissions",
+        "developer: real platform login and expected management permissions",
+        "admin: real platform login and expected management permissions",
+        "outsider: real platform login and expected management permissions"
+    ]
+}

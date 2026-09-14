@@ -2,7 +2,34 @@
 
 แพลตฟอร์ม Backend-as-a-Service ที่วางแผนรวม PostgreSQL, Authentication, REST APIs, Storage และ Realtime พร้อม Dashboard
 
-**Phase 1 ผ่านแล้ว** (13 กันยายน 2026): Dashboard เชื่อม FastAPI แสดงสถานะจริงของ Alpha/Beta พร้อม platform database แยก, migrations และ workflow ทดสอบ ผ่านทั้ง local checks และ [GitHub CI จาก fresh checkout](https://github.com/Burinboo256/SiBase/actions/runs/34765727009) ยังไม่ใช่ production และยังไม่เริ่ม Phase 2
+**Phase 2 มีระบบ Control Plane ที่ทดสอบ local แล้ว** (14 กันยายน 2026): บัญชีแพลตฟอร์ม, workspace/สมาชิก, สร้างโปรเจกต์จริง, API keys และ durable worker ดู [รายงาน Phase 2](docs/phase2-report.md) สำหรับผลตรวจและรายการที่ยังรอรับงาน ยังไม่ใช่ production; ผล GitHub CI ที่ยืนยันแล้วเป็นของ [Phase 1](https://github.com/Burinboo256/SiBase/actions/runs/34765727009)
+
+## Phase 3 — Auth และ RLS
+
+เพิ่ม Auth แบบ opt-in รายโปรเจกต์: ยืนยันอีเมล/กู้รหัสผ่าน, refresh/logout, signing-key rotation, forced RLS และหน้า Users/Sessions/Auth Settings/Permission preview ใช้โปรเจกต์ `Auth Sandbox` แยกจาก Operations/Inventory ดู [คู่มือ](docs/phase3-development.md) และ [ผลตรวจ/ข้อจำกัด](docs/phase3-report.md)
+
+```sh
+make phase3-dev
+make phase3-prepare
+make phase3-check
+# บน fresh checkout ให้รัน make phase2-integration ก่อน:
+make phase3-integration
+```
+
+Dashboard ใช้พอร์ต 58400 และบัญชีผู้ดูแลเดิม; inbox ทดสอบอยู่ `http://127.0.0.1:58425` integration จะเพิ่มข้อมูลสังเคราะห์และหมุน signing key ของ Sandbox ไม่ใช่คำสั่งสำหรับ production ยังไม่มีผล GitHub CI ของ Phase 2–3 หรือการทดสอบ SMTP staging จริง
+
+## เริ่ม Phase 2
+
+```sh
+make phase2-dev
+make phase2-check
+make phase2-integration  # สร้างข้อมูล/บัญชีทดสอบและทดสอบ suspend/restore
+make phase2-recovery     # หยุด worker กลางงานแล้วตรวจการกู้คืน
+```
+
+เปิด http://127.0.0.1:58400 ใช้ `owner@sibase.local` และรหัสผ่านที่สุ่มไว้ใน `.local/sibase-control/initial-owner.json` ห้ามส่งไฟล์นี้ขึ้น GitHub ส่วน Control API ใช้ 58410 และ project gateway ใช้ 58420
+
+Stack `sibase-control` แยก volumes, credentials และ migrations จาก Phase 0–1 ใช้ `make phase2-status` ดูสถานะ และ `make phase2-stop` หยุดโดยเก็บข้อมูลไว้ คู่มือ [Phase 2 development](docs/phase2-development.md) อธิบายการเพิ่มสมาชิก ตารางสิทธิ์ และข้อจำกัดของ local pilot
 
 ## เริ่ม Phase 1
 

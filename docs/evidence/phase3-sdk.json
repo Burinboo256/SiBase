@@ -1,0 +1,9 @@
+{
+    "sdk": "2.116.0",
+    "checks": [
+        "SDK signup and email verification for two users after signing rotation",
+        "SDK owner-row isolation and refreshSession",
+        "Authenticated SDK Realtime subscribe and broadcast after signing rotation",
+        "SDK signOut clears app sessions"
+    ]
+}

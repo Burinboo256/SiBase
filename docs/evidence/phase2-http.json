@@ -1,0 +1,22 @@
+{
+    "checks": [
+        "Platform Auth login and server-side session",
+        "CSRF blocks unauthenticated-origin mutations",
+        "Two API-created projects and idempotent create",
+        "Auth, REST, Storage, Realtime and S3 readiness for both projects",
+        "Separate real databases, one-time keys, atomic rotation and immediate old-key rejection",
+        "Cross-project API key rejected",
+        "Suspend/resume, archive/resume, soft-delete/restore retain data and close gateway",
+        "Live PostgreSQL grants separate API, gateway and worker authority"
+    ],
+    "projects": [
+        {
+            "name": "Operations",
+            "ref": "p_89904caec1e44c21"
+        },
+        {
+            "name": "Inventory",
+            "ref": "p_d73cea60275b4b07"
+        }
+    ]
+}

@@ -1,12 +1,12 @@
 # SiBase — แผนพัฒนาแพลตฟอร์มแบบ Supabase
 
-สถานะ: Phase 0–1 ผ่านแล้ว รวม GitHub CI จาก fresh checkout; Phase 2–9 ยังไม่เริ่ม · ปรับปรุง: 13 กันยายน 2026
+สถานะ: Phase 0–1 ผ่านแล้ว; Phase 2–3 มี implementation และผลตรวจ local; ยังรอ GitHub CI และ acceptance บางรายการ; Phase 4–9 ยังไม่เริ่ม · ปรับปรุง: 14 กันยายน 2026
 
 ## 1. เป้าหมายและขอบเขต
 
 สร้าง Backend-as-a-Service ที่นักพัฒนาสามารถสร้างโปรเจกต์ ใช้ PostgreSQL จัดการผู้ใช้ เรียก REST API เก็บไฟล์ และติดตามการเปลี่ยนแปลงข้อมูลแบบ Realtime ผ่าน Dashboard เดียว
 
-Repository มี local PoC และผล Phase 0 ผ่าน 17/17 กลุ่มตาม [รายงาน](phase0-report.md) Phase 1 เพิ่ม FastAPI แบบอ่านอย่างเดียว, Dashboard ที่แสดงสถานะจริง, platform database แยก และ workflow ทดสอบ โดย fresh-volume integration ผ่าน 19/19 กลุ่ม ดู [รายงาน Phase 1](phase1-report.md) งานสมาชิก/provisioning และ Phase 2–9 ยังเป็นแผน
+Repository มี local PoC และผล Phase 0 ผ่าน 17/17 กลุ่มตาม [รายงาน](phase0-report.md) Phase 1 เพิ่ม FastAPI แบบอ่านอย่างเดียว, Dashboard ที่แสดงสถานะจริง, platform database แยก และ workflow ทดสอบ โดย fresh-volume integration ผ่าน 19/19 กลุ่ม ดู [รายงาน Phase 1](phase1-report.md) Phase 2 เพิ่มระบบสมาชิก/provisioning ที่ทดสอบกับสองโปรเจกต์จริงแล้ว ดู [ผลตรวจและรายการคงเหลือ](phase2-report.md)
 
 ### กลุ่มเป้าหมายและสมมติฐานสำหรับแผนนี้
 
@@ -126,29 +126,37 @@ Gateway ต้องเลือกโปรเจกต์จาก routing ท
 
 **เป้าหมาย:** เจ้าของระบบสร้างพื้นที่ทำงานและโปรเจกต์ที่มีทรัพยากรแยกกันได้
 
-- [ ] เชื่อม Auth สำหรับบัญชีแพลตฟอร์ม; สร้าง workspace, membership และบทบาท Owner/Admin/Developer/Viewer พร้อมตารางสิทธิ์
-- [ ] สร้าง project metadata, API key lifecycle และ audit events ของงานจัดการ
-- [ ] ทำ provisioning แบบ asynchronous: `pending → provisioning → ready/failed` พร้อม idempotency และ retry
-- [ ] สร้าง database, roles, secrets และ routing ต่อโปรเจกต์; เปิดบริการตาม dependencies
-- [ ] แยกสิทธิ์ worker ที่สร้างทรัพยากรจากสิทธิ์ runtime ของ API; เก็บ secrets แบบเข้ารหัส
-- [ ] ทำหน้า Project List/Create/Overview และสถานะความล้มเหลวที่ retry ได้
-- [ ] กำหนด suspend/archive และขั้นตอนลบแบบมีช่วงกู้คืน; หยุด API/Realtime และงานค้างให้สอดคล้องกัน
+- [x] เชื่อม Auth สำหรับบัญชีแพลตฟอร์ม; สร้าง workspace, membership และบทบาท Owner/Admin/Developer/Viewer พร้อมตารางสิทธิ์
+- [x] สร้าง project metadata, API key lifecycle และ audit events ของงานจัดการ
+- [x] ทำ provisioning แบบ asynchronous: `pending → provisioning → ready/failed` พร้อม idempotency และ retry
+- [x] สร้าง database, roles, secrets และ routing ต่อโปรเจกต์; เปิดบริการตาม dependencies
+- [x] แยกสิทธิ์ worker ที่สร้างทรัพยากรจากสิทธิ์ runtime ของ API; เก็บ secrets แบบเข้ารหัส
+- [x] ทำหน้า Project List/Create/Overview และสถานะความล้มเหลวที่ retry ได้
+- [x] กำหนด suspend/archive และขั้นตอนลบแบบมีช่วงกู้คืน; หยุด API/Realtime และงานค้างให้สอดคล้องกัน
+- [ ] ตรวจหน้าจอหลังล็อกอินและ responsive layout เพื่อรับงาน UI
+- [ ] ยืนยัน Phase 2 GitHub CI จาก fresh checkout หลังได้รับอนุญาตให้ commit/push
 
 **ส่งมอบ:** สร้างโปรเจกต์ผ่าน Dashboard ได้พร้อม endpoint และสถานะบริการ
 
 **เกณฑ์ผ่าน:** สร้างสองโปรเจกต์ได้จริง; retry ไม่สร้างทรัพยากรซ้ำ; crash ระหว่าง provisioning กู้คืนได้; ผู้ไม่มีสิทธิ์จัดการโปรเจกต์ไม่ได้
 
+**ผลปัจจุบัน:** core local tests ผ่าน รวมสองโปรเจกต์จริง, SDK, RBAC, lifecycle และ process crash recovery แต่ยังไม่ปิด Phase 2 จนกว่าจะตรวจ UI/CI ที่คงเหลือ ดู [รายงาน Phase 2](phase2-report.md) และ [คู่มือ/ตารางสิทธิ์](phase2-development.md)
+
 ## Phase 3 — Authentication และสิทธิ์การเข้าถึงข้อมูล
 
 **เป้าหมาย:** ผู้ใช้แอปมีบัญชีและ session ของตนเองในแต่ละโปรเจกต์
 
-- [ ] เชื่อม email/password, email verification, reset password, refresh rotation และ logout ของ Auth service
-- [ ] ตั้ง local mail inbox สำหรับพัฒนา และ SMTP configuration สำหรับ staging
-- [ ] กำหนด access-token lifetime, issuer/audience, project binding, key rotation และผลของ logout ต่อ token ที่ยังไม่หมดอายุ
-- [ ] สร้าง roles สำหรับ anonymous/authenticated/server และ policy template แบบเจ้าของแถว
-- [ ] ตั้ง default-deny สำหรับตารางที่เปิด API; runtime role ต้องไม่เป็นเจ้าของตารางหรือมี `BYPASSRLS`
-- [ ] ทำหน้า Users/Sessions/Auth Settings และ permission preview
-- [ ] ทดสอบ token หมดอายุ/ผิดโปรเจกต์, password reset ใช้ซ้ำ, refresh ใช้ซ้ำ และการเข้าถึงแถวของผู้อื่น
+- [x] เชื่อม email/password, email verification, reset password, refresh rotation และ logout ของ Auth service
+- [x] ตั้ง local mail inbox สำหรับพัฒนา และ private SMTP configuration hook สำหรับ staging (ยังไม่ทดสอบส่งเมลภายนอก)
+- [x] กำหนด access-token lifetime, issuer/audience, project binding, signing-key rotation และผลของ logout ต่อ token ที่ยังไม่หมดอายุ
+- [x] สร้าง roles สำหรับ anonymous/authenticated/server และ policy template แบบเจ้าของแถว
+- [x] ตั้ง default-deny/forced RLS สำหรับ public tables ในโปรเจกต์ที่ opt in; REST/anon/authenticated ไม่เป็น superuser หรือ `BYPASSRLS`
+- [x] ทำหน้า Users/Sessions/Auth Settings และ permission preview แบบ read-only metadata inventory
+- [x] ทดสอบ token หมดอายุ/ผิดโปรเจกต์, password reset ใช้ซ้ำ, refresh ใช้ซ้ำ และการเข้าถึงแถวของผู้อื่น
+- [ ] ยืนยัน GitHub CI ของ Phase 2–3 หลังได้รับอนุญาต commit/push
+- [ ] ตรวจ app callback/origin configuration และ SMTP จริงก่อน staging; ทดสอบ UI mutation flows แบบ end-to-end
+
+**ผลปัจจุบัน:** local Auth/RLS และ SDK tests ผ่าน; ตรวจ Users/Sessions/Auth Settings/Permission preview ผ่าน Safari หลัง login แล้ว โปรเจกต์เดิมไม่ถูกเปลี่ยนโดยปริยาย ดู [รายงาน Phase 3](phase3-report.md) และ [สัญญา/คู่มือ](phase3-development.md) หน้า callback local เป็น landing ที่ล้าง tokens ไม่ใช่หน้า recovery ของแอปจริง
 
 PostgREST ตรวจ JWT และสลับ database role เพื่อให้ฐานข้อมูลตัดสินสิทธิ์ ส่วน table owner อาจข้าม RLS ได้ จึงต้องออกแบบ runtime role ให้ถูกต้อง อ้างอิง [PostgREST authentication](https://postgrest.org/en/stable/references/auth.html) และ [PostgreSQL row security](https://www.postgresql.org/docs/current/ddl-rowsecurity.html)
 

@@ -31,3 +31,21 @@ jobs:
       - name: Stop stack without deleting volumes
         if: always()
         run: make stop
+  phase2:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Fresh control-plane stack
+        run: make phase2-dev
+      - name: Backend and Dashboard checks
+        run: make phase2-check
+      - name: Real project lifecycle, RBAC and SDK contracts
+        run: make phase2-integration
+      - name: Application Auth, email flows, forced RLS and signing rotation
+        run: make phase3-integration
+      - name: Worker crash recovery without duplicate resources
+        run: make phase2-recovery
+      - name: Stop control-plane stack without deleting volumes
+        if: always()
+        run: make phase2-stop
