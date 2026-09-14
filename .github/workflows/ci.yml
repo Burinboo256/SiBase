@@ -47,7 +47,11 @@ jobs:
       - name: Desktop and mobile browser acceptance
         run: make phase3-e2e
       - name: No generated credentials in Git-visible files
-        run: python3 scripts/check_secrets.py
+        # Git runs as the checkout owner; only the read-only scanner needs to
+        # read 0600 fixtures created by root inside test containers.
+        run: |
+          set -o pipefail
+          git ls-files -co --exclude-standard -z | sudo python3 scripts/check_secrets.py --files-stdin
       - name: Worker crash recovery without duplicate resources
         run: make phase2-recovery
       - name: Safe worker failure categories

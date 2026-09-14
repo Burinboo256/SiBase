@@ -1,8 +1,10 @@
 """Check Git-visible files without printing any matched credential values."""
 
+import argparse
 import json
 import re
 import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -32,15 +34,20 @@ def values(item, all_values=False):
     return found
 
 
-def main():
+def main(files=None):
     known = set()
     for path in PRIVATE.glob("*.json"):
         known |= values(json.loads(path.read_text()), path.name == "secrets.json")
-    files = (
-        subprocess.check_output(["git", "ls-files", "-co", "--exclude-standard", "-z"], cwd=ROOT)
-        .decode()
-        .split("\0")
-    )
+    if files is None:
+        files = (
+            subprocess.check_output(
+                ["git", "ls-files", "-co", "--exclude-standard", "-z"], cwd=ROOT
+            )
+            .decode()
+            .split("\0")
+        )
+    if not set(files) - {""}:
+        raise SystemExit("FAIL: empty Git inventory; no audit performed")
     failures = []
     for name in set(files) - {""}:
         path = ROOT / name
@@ -62,4 +69,9 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--files-stdin", action="store_true", help="Read NUL-separated Git file paths from stdin"
+    )
+    args = parser.parse_args()
+    main(sys.stdin.read().split("\0") if args.files_stdin else None)
