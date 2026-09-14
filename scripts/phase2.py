@@ -283,6 +283,16 @@ def prepare() -> None:
         "volumes": ["mailpit_data:/data"],
         "restart": "on-failure:5",
     }
+    services["browser"] = {
+        "image": "mcr.microsoft.com/playwright:v1.63.0-noble@sha256:eff16c30e6f3f4af0a03fa4b706120d5e9b0891c344a27d64559aff5900a4a27",
+        "profiles": ["tools"],
+        "working_dir": "/workspace/tests/browser",
+        "networks": ["control", "data"],
+        "volumes": [f"{ROOT}:/workspace", "browser_modules:/workspace/tests/browser/node_modules"],
+        "command": ["sh", "-ec", "npm ci --ignore-scripts --no-audit --no-fund && npm test"],
+        "init": True,
+        "shm_size": "1gb",
+    }
     for svc in services.values():
         svc["logging"] = {"driver": "json-file", "options": {"max-size": "5m", "max-file": "2"}}
     write_json(
@@ -293,7 +303,14 @@ def prepare() -> None:
             "networks": {"control": {}, "data": {}},
             "volumes": {
                 v: {}
-                for v in ("control_pg", "data_pg", "node_modules", "sdk_modules", "mailpit_data")
+                for v in (
+                    "control_pg",
+                    "data_pg",
+                    "node_modules",
+                    "sdk_modules",
+                    "mailpit_data",
+                    "browser_modules",
+                )
             },
         },
     )
@@ -331,6 +348,20 @@ def wait_auth() -> None:
     raise RuntimeError("Platform Auth did not become ready")
 
 
+def ensure_project_images() -> None:
+    # Docker's create-container API does not pull missing images. A fresh runner
+    # must have every pinned data service before accepting provisioning jobs.
+    for kind in ("auth", "rest", "storage", "realtime", "s3"):
+        image = IMAGES[kind]
+        result = subprocess.run(
+            ["docker", "image", "inspect", image],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        if result.returncode:
+            subprocess.run(["docker", "pull", image], check=True)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -352,6 +383,7 @@ def main() -> None:
     if args.command in {"setup", "dev"}:
         prepare()
         compose("build", "tools", "data-db")
+        ensure_project_images()
     if args.command == "dev":
         compose("up", "-d", "--wait", "control-db", "data-db")
         compose("run", "--rm", "tools", "alembic", "-c", "alembic-control.ini", "upgrade", "head")

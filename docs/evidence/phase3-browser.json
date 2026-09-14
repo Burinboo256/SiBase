@@ -1,0 +1,17 @@
+{
+    "browser": "Chromium / Playwright 1.63.0",
+    "viewports": [
+        "1280x900",
+        "390x844"
+    ],
+    "checks": [
+        "Platform owner browser login and project/Auth overview",
+        "Auth Settings apply/reconcile, all Auth tabs, Team/Audit and mobile layout",
+        "Dashboard creates and hides a one-time anon project key",
+        "Desktop/mobile app signup, real email links and secret-free callback URLs",
+        "Browser owner-row isolation and refresh-session action",
+        "Browser recovery/password update, old-password denial, new-password login and replay denial",
+        "Dashboard key revocation denies app requests; platform logout returns to login"
+    ],
+    "uncaught_page_errors": 0
+}

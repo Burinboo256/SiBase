@@ -85,6 +85,17 @@
     background: #161e18;
     padding: 26px;
 }
+.app-test {
+    width: min(760px, calc(100% - 32px));
+    margin: 24px auto;
+    overflow-wrap: anywhere;
+}
+.app-test h2 {
+    margin-top: 28px;
+}
+.app-test form {
+    margin: 16px 0;
+}
 .control-actions button[aria-pressed='true'] {
     border-color: #a5d6b5;
     color: #c2ebcf;

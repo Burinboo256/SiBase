@@ -44,8 +44,15 @@ jobs:
         run: make phase2-integration
       - name: Application Auth, email flows, forced RLS and signing rotation
         run: make phase3-integration
+      - name: Desktop and mobile browser acceptance
+        run: make phase3-e2e
+      - name: No generated credentials in Git-visible files
+        run: python3 scripts/check_secrets.py
       - name: Worker crash recovery without duplicate resources
         run: make phase2-recovery
+      - name: Safe worker failure categories
+        if: failure()
+        run: docker compose -f .local/sibase-control/compose.json logs --no-color --tail 80 worker
       - name: Stop control-plane stack without deleting volumes
         if: always()
         run: make phase2-stop

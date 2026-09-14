@@ -41,3 +41,5 @@ Python dependencies พร้อม hashes อยู่ใน [requirements.lock
 ## Phase 3 local email testing
 
 ใช้ Mailpit `v1.31.1` image digest `sha256:98b916bd3c8d61f7633a52d3ea2f58d00620cb01ca57ab59edde68c347a95365` โดย pin ใน `scripts/phase2.py` ตรวจและทดสอบ local วันที่ 14 กันยายน 2026 ดู [official Docker configuration](https://mailpit.axllent.org/docs/install/docker/) เพิ่ม component นี้ใน SBOM/license/security review ก่อนแจกจ่าย; ไม่ใช่ production mail delivery service
+
+Browser acceptance ใช้ Playwright `1.63.0` (npm lockfile: `tests/browser/package-lock.json`) และ official image `mcr.microsoft.com/playwright:v1.63.0-noble@sha256:eff16c30e6f3f4af0a03fa4b706120d5e9b0891c344a27d64559aff5900a4a27` แบบ test-only ดู [Docker guidance](https://playwright.dev/docs/docker) ไม่ใช้ container นี้เปิดเว็บที่ไม่น่าเชื่อถือ

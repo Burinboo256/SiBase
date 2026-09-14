@@ -91,9 +91,12 @@ def reconcile(
             checkpoint("stopped")
     except InterruptedError:
         failure = "state_changed"
-    except Exception:
+    except Exception as exc:
         # Upstream exceptions can include credentials; persist a safe code only.
         failure = "provisioning_failed"
+        logging.getLogger(__name__).error(
+            "provisioning_failed project=%s exception_type=%s", ref, type(exc).__name__
+        )
     with sessions.begin() as db:
         project = db.get(Project, pid, with_for_update=True)
         job = db.get(Job, pid)

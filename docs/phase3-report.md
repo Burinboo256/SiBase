@@ -15,14 +15,15 @@ Date: 2026-09-14. Scope: application Auth and row-level permissions for the inte
 
 | Check | Result / evidence |
 | --- | --- |
-| Backend unit/regression suite | 82 passed; statement coverage 92.52%, threshold 80% |
-| Dashboard component suite | 14 passed, including Auth tabs, callback secret removal and empty-workspace regression |
+| Backend unit/regression suite | 84 passed; statement coverage 92.53%, threshold 80% |
+| Dashboard component suite | 18 passed, including Auth tabs, callback secret removal, public-only demo configuration and empty-workspace regression |
 | Static/build checks | Ruff, strict mypy (15 source files), ESLint, Prettier and TypeScript/Vite passed |
 | Real Auth/RLS integration | [10 checks](evidence/phase3-auth.json): two email confirmations, unconfirmed login denial, owner-row CRUD/spoof protection, expiry/issuer/audience/cross-project denial, default-deny future tables, refresh reuse, logout, recovery replay, snapshots and signing rotation |
 | JavaScript SDK after signing rotation | [4 checks](evidence/phase3-sdk.json): signup/verifyOtp for two users, owner-row isolation/refreshSession, authenticated Realtime subscribe/broadcast and signOut |
 | Phase 2 regression after Phase 3 changes | Full HTTP lifecycle/grants, real-account RBAC and 10 Auth/REST/Storage/Realtime SDK checks rerun successfully; [HTTP](evidence/phase2-http.json), [RBAC](evidence/phase2-rbac.json), [SDK](evidence/phase2-sdk.json) |
 | WebSocket JWT validation | Unit tests reject expired/wrong-issuer/wrong-audience/privileged-role JWTs before forwarding join frames; supports object and Phoenix array frames |
 | Safari, logged-in owner | Project Overview, Users, Sessions, Auth Settings and Permission preview checked against real Auth Sandbox metadata; Auth Settings screenshot inspected. Team and Audit log also displayed correctly |
+| Chromium browser E2E | [7 groups](evidence/phase3-browser.json): actual desktop/mobile login, settings mutation, key creation/revocation, two-user email flows, RLS, refresh, recovery/password change/replay and logout; [runner contract](browser-acceptance.md) |
 | Contributor guide / secrets | `AGENTS.md` SHA-256 unchanged; no full JWTs or opaque API keys found in Git-visible files |
 
 Testing caught and fixed an Auth panel mounted under Team instead of Project Overview, which broke an empty workspace. Live UI review also exposed that metadata can lag during provisioning: the panel now shows collection time, distinguishes polling from collection and warns on snapshots older than 30 seconds.
@@ -32,8 +33,8 @@ Auth Sandbox is separate from Operations/Inventory; no automatic hardening was a
 ## Remaining acceptance and limits
 
 - GitHub CI is configured but **not run for this worktree**. Fresh-checkout reproducibility remains a release gate. No commit/push/deployment in this round.
-- Safari checks covered navigation/read-only data, not a complete responsive or mutation-flow browser E2E. Existing component/API tests cover those mutations separately.
-- Configure an actual app callback and gateway origin allowlist before browser-app integration. The default callback is deliberately a local landing page, not an end-user recovery UI.
+- The principal local responsive/mutation flows now pass Chromium E2E; exhaustive all-browser accessibility and every management action remain broader MVP acceptance work.
+- A loopback-only `/app-test` now handles real confirmation/recovery callbacks for local acceptance; configure the production application's callback and gateway origin allowlist before staging.
 - Validate real staging SMTP/TLS/sender/delivery and rate limits before sending real email. Local Mailpit contains sensitive one-time links and must remain private.
 - Policy preview is a bounded inventory, not a general permission simulator. Forced RLS preserves existing permissive policies; views/RPC and detailed Realtime row-event authorization remain Phase 4/6 work.
 - Logout revokes refresh tokens, not unexpired access JWTs. Refresh immediate-parent retry is an upstream exception even with zero grace. Read-only sessions adapter is pinned-version-specific.

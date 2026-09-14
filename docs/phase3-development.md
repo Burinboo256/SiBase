@@ -12,6 +12,7 @@ make phase3-prepare      # สร้าง/เปิด Auth Sandbox และ�
 make phase3-check        # lint, types, backend/frontend tests และ frontend build
 make phase2-integration # เตรียม/ตรวจ Operations และ Inventory สำหรับ cross-project tests
 make phase3-integration # เพิ่มผู้ใช้/ข้อมูลทดสอบ ยืนยันอีเมล และหมุน signing key ของ Sandbox
+make phase3-e2e         # Chromium: desktop/mobile signup, recovery, RLS และ Dashboard mutations
 make phase3-status
 ```
 
@@ -44,7 +45,7 @@ await app.auth.refreshSession();
 await app.auth.signOut();
 ```
 
-แอปต้องสร้างหน้า callback/password recovery ของตนเอง ค่า local default `/auth/callback` เป็นหน้าอธิบายที่ล้าง URL secrets เท่านั้น **ไม่ใช่หน้า reset password หรือ login ผู้ดูแล** ใช้ HTTPS callback บน staging; HTTP อนุญาตเฉพาะ localhost/127.0.0.1 การอนุญาต browser origins ที่ gateway ยังยึด local Dashboard origin ตาม Phase 2; ต้องออกแบบ allowlist สำหรับ app origins ก่อน staging
+แอปจริงต้องสร้างหน้า callback/password recovery ของตนเอง สำหรับ local มี `/app-test` พร้อมหน้า recovery เพื่อทดสอบครบ flow เมื่อบันทึก project ref/anon key แล้ว `/auth/callback` จะล้าง URL secrets และส่ง session เข้าแอปทดสอบใน memory; หากไม่มี public configuration จะแสดง safe landing **ไม่สร้าง session ผู้ดูแล** ดู [วิธีทดสอบ browser](browser-acceptance.md) ใช้ HTTPS callback บน staging; HTTP อนุญาตเฉพาะ localhost/127.0.0.1 การอนุญาต browser origins ที่ gateway ยังยึด local Dashboard origin ตาม Phase 2; ต้องออกแบบ allowlist สำหรับ app origins ก่อน staging
 
 - Password ขั้นต่ำ 12 ตัวอักษร; confirmation/recovery token อายุ 600 วินาที และใช้ซ้ำไม่ได้
 - Access JWT: HS256, issuer `<gateway>/p/<ref>/auth/v1`, audience `authenticated`, role `authenticated`; lifetime 300–3600 วินาที (default 900; Sandbox 300)
