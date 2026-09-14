@@ -2,7 +2,7 @@
 
 แพลตฟอร์ม Backend-as-a-Service ที่วางแผนรวม PostgreSQL, Authentication, REST APIs, Storage และ Realtime พร้อม Dashboard
 
-**Phase 2 มีระบบ Control Plane ที่ทดสอบ local แล้ว** (14 กันยายน 2026): บัญชีแพลตฟอร์ม, workspace/สมาชิก, สร้างโปรเจกต์จริง, API keys และ durable worker ดู [รายงาน Phase 2](docs/phase2-report.md) สำหรับผลตรวจและรายการที่ยังรอรับงาน ยังไม่ใช่ production; ผล GitHub CI ที่ยืนยันแล้วเป็นของ [Phase 1](https://github.com/Burinboo256/SiBase/actions/runs/34765727009)
+**Phase 2–3 ผ่านการตรวจรับสำหรับ local development แล้ว** (14 กันยายน 2026): Control Plane, project provisioning, application Auth และ RLS ผ่าน unit/integration/desktop-mobile browser tests พร้อม [GitHub CI จาก fresh checkout](https://github.com/Burinboo256/SiBase/actions/runs/34808678414) ดู [รายงานปิดงาน](docs/phase2-3-acceptance.md) ยังไม่ใช่ production/staging acceptance; ขั้นถัดไปคือ Phase 4 Database Management และ REST APIs
 
 ## Phase 3 — Auth และ RLS
 
@@ -14,9 +14,10 @@ make phase3-prepare
 make phase3-check
 # บน fresh checkout ให้รัน make phase2-integration ก่อน:
 make phase3-integration
+make phase3-e2e
 ```
 
-Dashboard ใช้พอร์ต 58400 และบัญชีผู้ดูแลเดิม; inbox ทดสอบอยู่ `http://127.0.0.1:58425` integration จะเพิ่มข้อมูลสังเคราะห์และหมุน signing key ของ Sandbox ไม่ใช่คำสั่งสำหรับ production ยังไม่มีผล GitHub CI ของ Phase 2–3 หรือการทดสอบ SMTP staging จริง
+Dashboard ใช้พอร์ต 58400 และบัญชีผู้ดูแลเดิม; inbox ทดสอบอยู่ `http://127.0.0.1:58425` ทดลอง signup/recovery ที่ `/app-test` ตาม [คู่มือ browser](docs/browser-acceptance.md) integration จะเพิ่มข้อมูลสังเคราะห์และหมุน signing key ของ Sandbox ไม่ใช่คำสั่งสำหรับ production; SMTP staging จริงยังไม่ได้ทดสอบ
 
 ## เริ่ม Phase 2
 

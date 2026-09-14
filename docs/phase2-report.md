@@ -25,14 +25,14 @@ Date: 2026-09-14. Scope: internal-team local pilot, not production acceptance.
 | Full control-plane stop/dev cycle | [Restart evidence](evidence/phase2-restart.json): original rows and S3 objects retained in both projects |
 | Phase 1 smoke regression | Existing Dashboard/modules/proxy and both Alpha/Beta projects passed |
 | Credential audit / contributor guide | No generated credentials found in Git-visible files; `AGENTS.md` SHA-256 unchanged |
-| Browser visual check | Safari login screen verified in Phase 2; Phase 3 follow-up verified logged-in Project Overview, Team and Audit views. Responsive/mutation walkthrough remains pending |
+| Browser visual check | Safari Project Overview/Team/Audit reviewed; follow-up Chromium desktop/mobile E2E covers login, project/Auth overview, settings mutation, key creation/revocation and logout. [Browser evidence](evidence/phase3-browser.json) |
+| Fresh-checkout GitHub CI | [Run 34808678414](https://github.com/Burinboo256/SiBase/actions/runs/34808678414) passed all jobs, including provisioning, lifecycle, SDK, Auth/RLS, browser acceptance, secret audit and crash recovery |
 
 The actual projects are Operations and Inventory. During testing, S3 endpoint/bucket naming, already-owned bucket retries, asynchronous PostgREST schema reload, Realtime key translation and worker restart reconciliation were corrected. Two generated Storage containers were replaced to apply the bucket-name correction; their databases and volumes were retained. No Phase 0–1 data or `AGENTS.md` was modified.
 
-## Remaining acceptance / release checks
+## Local acceptance and deployment limits
 
-- Complete responsive and mutation-flow visual acceptance. The Phase 3 follow-up checked Project Overview/Team/Audit after login; component tests are not a replacement for the remaining end-to-end flows.
-- Run the new Phase 2 GitHub CI job from a fresh checkout after authorization to commit/push. It is configured, **not yet remotely verified**. The first local bootstrap required a search-path correction; the launcher now includes it, but a fully fresh Phase 2 CI run remains the reproducibility gate.
+- Local UI and fresh-checkout CI gates are closed. The fresh runner exposed missing service-image preload and a credential-audit file-permission issue; both were corrected and verified. See [combined closeout](phase2-3-acceptance.md).
 - Production work is not included: TLS, invitations/SMTP/recovery UI, high availability, master-key/internal JWT rotation, physical purge and stronger project network isolation. See [operational limits](phase2-development.md#security-and-operational-limits).
 
-Implementation and core local acceptance tests are complete; Phase 2 is not marked fully accepted while the above UI/CI checks remain. Phase 3 subsequently added opt-in project email verification/RLS and project signing-key rotation; see [its report](phase3-report.md). The counts above record the Phase 2 baseline. No commit, push or deployment was performed for this phase.
+Phase 2 is accepted for local development. Phase 3 adds opt-in project email verification/RLS and project signing-key rotation; see [its report](phase3-report.md). The counts above record the Phase 2 baseline; the combined suite now has 87 backend and 18 frontend tests. Code was committed/pushed with user authorization; no deployment was performed.

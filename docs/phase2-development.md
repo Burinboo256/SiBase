@@ -15,6 +15,8 @@ make phase2-stop
 
 Dashboard: `http://127.0.0.1:58400`; Control API: `58410`; gateway: `58420/p/<ref>`. Ports are fixed in this local launcher. Phase 0–1 continue to use their existing commands and ports. `phase2-dev` runs migrations and seeds the initial account; reruns preserve credentials. The worker reconciles previously-ready projects after restart.
 
+Setup/dev also preloads all pinned project-service images before accepting provisioning jobs; Docker's create-container API cannot pull a missing image itself. For desktop/mobile browser acceptance after the Phase 3 fixtures are ready, run `make phase3-e2e`; see [the browser guide](browser-acceptance.md).
+
 The initial account is `owner@sibase.local`; read its generated password locally from `.local/sibase-control/initial-owner.json`. Platform sessions are HttpOnly, SameSite=Strict cookies, expire within one hour, and require signing in again. The provider access token is never returned to the browser. Logout revokes the local session immediately. Public platform signup is disabled.
 
 ## Accounts and workspace permissions
@@ -57,4 +59,4 @@ Browser CORS currently allows the two Dashboard origins (`127.0.0.1:58400` / `lo
 
 Only the local worker mounts the Docker socket and receives data-cluster administrator credentials. The API cannot read the project-secret or route tables; gateway has read-only metadata grants. Project secrets use a worker-only Fernet key; gateway routing tokens use a different key. Keep `.local/sibase-control` private and back up its keys together with database and object volumes. Losing encryption keys makes stored secrets unrecoverable.
 
-Docker administrators can inspect runtime environment variables. Socket access is effectively host-administrator access; this design is **not** a hardened multi-tenant production deployment. Networks separate management from application services, but application projects share a data network and PostgreSQL cluster. Master-key rotation, internal JWT renewal (one-year lifetime), TLS, SMTP, rate-limit hardening, HA/fencing and physical purge need separate operator/release work. Application-user password recovery, refresh policy and RLS management are Phase 3+ work.
+Docker administrators can inspect runtime environment variables. Socket access is effectively host-administrator access; this design is **not** a hardened multi-tenant production deployment. Networks separate management from application services, but application projects share a data network and PostgreSQL cluster. Master-key rotation, internal JWT renewal (one-year lifetime), TLS, external SMTP, rate-limit hardening, HA/fencing and physical purge need separate operator/release work. Phase 3 adds opt-in application-user password recovery, refresh policy, project signing-key rotation and forced RLS; see [its contract](phase3-development.md).

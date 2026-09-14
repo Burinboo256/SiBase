@@ -1,0 +1,22 @@
+{
+    "run_id": 34808678414,
+    "url": "https://github.com/Burinboo256/SiBase/actions/runs/34808678414",
+    "commit": "62165befbd29702cb208b08611a6012f16a21954",
+    "status": "completed",
+    "conclusion": "success",
+    "completed_at": "2026-09-14T05:18:15Z",
+    "jobs": {
+        "phase1": "success",
+        "phase2": "success"
+    },
+    "control_plane_checks": [
+        "Fresh control-plane stack",
+        "Backend and Dashboard checks",
+        "Real project lifecycle, RBAC and SDK contracts",
+        "Application Auth, email flows, forced RLS and signing rotation",
+        "Desktop and mobile browser acceptance",
+        "No generated credentials in Git-visible files",
+        "Worker crash recovery without duplicate resources",
+        "Stop control-plane stack without deleting volumes"
+    ]
+}

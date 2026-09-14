@@ -1,6 +1,6 @@
 # SiBase — แผนพัฒนาแพลตฟอร์มแบบ Supabase
 
-สถานะ: Phase 0–1 ผ่านแล้ว; Phase 2–3 มี implementation และผลตรวจ local; ยังรอ GitHub CI และ acceptance บางรายการ; Phase 4–9 ยังไม่เริ่ม · ปรับปรุง: 14 กันยายน 2026
+สถานะ: Phase 0–3 ผ่านสำหรับ local development; Phase 2–3 ปิด UI/CI acceptance แล้ว; Phase 4–9 ยังไม่เริ่ม · ปรับปรุง: 14 กันยายน 2026
 
 ## 1. เป้าหมายและขอบเขต
 
@@ -120,7 +120,7 @@ Gateway ต้องเลือกโปรเจกต์จาก routing ท
 
 **เกณฑ์ผ่าน:** เริ่มระบบตาม README ได้โดยไม่แก้ไฟล์ source; Dashboard ติดต่อ health endpoint ได้ และ CI ผ่าน
 
-**ผลตรวจรับ:** ผ่าน Phase 1 สำหรับ local development: local checks, fresh-volume bootstrap, stop/start persistence และ GitHub CI จาก fresh checkout ผ่านทั้งหมด แก้ข้อพบเรื่องเลือกพอร์ตผิด stack และรอ Dashboard พร้อม regression tests แล้ว ดูหลักฐาน/ข้อจำกัดใน [รายงาน Phase 1](phase1-report.md) ยังไม่ใช่ production acceptance และยังไม่เริ่ม Phase 2
+**ผลตรวจรับ:** ผ่าน Phase 1 สำหรับ local development: local checks, fresh-volume bootstrap, stop/start persistence และ GitHub CI จาก fresh checkout ผ่านทั้งหมด แก้ข้อพบเรื่องเลือกพอร์ตผิด stack และรอ Dashboard พร้อม regression tests แล้ว ดูหลักฐาน/ข้อจำกัดใน [รายงาน Phase 1](phase1-report.md) ยังไม่ใช่ production acceptance
 
 ## Phase 2 — Workspace และ Project Provisioning
 
@@ -133,14 +133,14 @@ Gateway ต้องเลือกโปรเจกต์จาก routing ท
 - [x] แยกสิทธิ์ worker ที่สร้างทรัพยากรจากสิทธิ์ runtime ของ API; เก็บ secrets แบบเข้ารหัส
 - [x] ทำหน้า Project List/Create/Overview และสถานะความล้มเหลวที่ retry ได้
 - [x] กำหนด suspend/archive และขั้นตอนลบแบบมีช่วงกู้คืน; หยุด API/Realtime และงานค้างให้สอดคล้องกัน
-- [ ] ตรวจหน้าจอหลังล็อกอินและ responsive layout เพื่อรับงาน UI
-- [ ] ยืนยัน Phase 2 GitHub CI จาก fresh checkout หลังได้รับอนุญาตให้ commit/push
+- [x] ตรวจหน้าจอหลังล็อกอินและ responsive layout เพื่อรับงาน UI รวม Chromium desktop/mobile E2E
+- [x] ยืนยัน Phase 2 GitHub CI จาก fresh checkout หลังได้รับอนุญาตให้ commit/push
 
 **ส่งมอบ:** สร้างโปรเจกต์ผ่าน Dashboard ได้พร้อม endpoint และสถานะบริการ
 
 **เกณฑ์ผ่าน:** สร้างสองโปรเจกต์ได้จริง; retry ไม่สร้างทรัพยากรซ้ำ; crash ระหว่าง provisioning กู้คืนได้; ผู้ไม่มีสิทธิ์จัดการโปรเจกต์ไม่ได้
 
-**ผลปัจจุบัน:** core local tests ผ่าน รวมสองโปรเจกต์จริง, SDK, RBAC, lifecycle และ process crash recovery แต่ยังไม่ปิด Phase 2 จนกว่าจะตรวจ UI/CI ที่คงเหลือ ดู [รายงาน Phase 2](phase2-report.md) และ [คู่มือ/ตารางสิทธิ์](phase2-development.md)
+**ผลตรวจรับ:** Phase 2 ผ่านสำหรับ local development รวมสองโปรเจกต์จริง, SDK, RBAC, lifecycle, crash recovery, UI และ fresh-checkout CI ดู [รายงานปิดงาน Phase 2–3](phase2-3-acceptance.md) และ [คู่มือ/ตารางสิทธิ์](phase2-development.md)
 
 ## Phase 3 — Authentication และสิทธิ์การเข้าถึงข้อมูล
 
@@ -153,10 +153,10 @@ Gateway ต้องเลือกโปรเจกต์จาก routing ท
 - [x] ตั้ง default-deny/forced RLS สำหรับ public tables ในโปรเจกต์ที่ opt in; REST/anon/authenticated ไม่เป็น superuser หรือ `BYPASSRLS`
 - [x] ทำหน้า Users/Sessions/Auth Settings และ permission preview แบบ read-only metadata inventory
 - [x] ทดสอบ token หมดอายุ/ผิดโปรเจกต์, password reset ใช้ซ้ำ, refresh ใช้ซ้ำ และการเข้าถึงแถวของผู้อื่น
-- [ ] ยืนยัน GitHub CI ของ Phase 2–3 หลังได้รับอนุญาต commit/push
-- [ ] ตรวจ app callback/origin configuration และ SMTP จริงก่อน staging; ทดสอบ UI mutation flows แบบ end-to-end
+- [x] ยืนยัน GitHub CI ของ Phase 2–3 หลังได้รับอนุญาต commit/push
+- [x] ตรวจ local app callback/origin และ UI mutation flows แบบ end-to-end รวม recovery/password update
 
-**ผลปัจจุบัน:** local Auth/RLS และ SDK tests ผ่าน; ตรวจ Users/Sessions/Auth Settings/Permission preview ผ่าน Safari หลัง login แล้ว โปรเจกต์เดิมไม่ถูกเปลี่ยนโดยปริยาย ดู [รายงาน Phase 3](phase3-report.md) และ [สัญญา/คู่มือ](phase3-development.md) หน้า callback local เป็น landing ที่ล้าง tokens ไม่ใช่หน้า recovery ของแอปจริง
+**ผลตรวจรับ:** Phase 3 ผ่านสำหรับ local development: Auth/RLS, SDK, Safari review, Chromium desktop/mobile E2E และ fresh-checkout CI ผ่านแล้ว โปรเจกต์เดิมไม่ถูก harden โดยปริยาย มี `/app-test` สำหรับ signup/recovery และ callback ที่ล้าง URL secrets ดู [รายงาน Phase 3](phase3-report.md) และ [สัญญา/คู่มือ](phase3-development.md) SMTP ภายนอกและ callback/origin ของแอป production เป็นเกณฑ์ก่อน staging ใน Phase 8
 
 PostgREST ตรวจ JWT และสลับ database role เพื่อให้ฐานข้อมูลตัดสินสิทธิ์ ส่วน table owner อาจข้าม RLS ได้ จึงต้องออกแบบ runtime role ให้ถูกต้อง อ้างอิง [PostgREST authentication](https://postgrest.org/en/stable/references/auth.html) และ [PostgreSQL row security](https://www.postgresql.org/docs/current/ddl-rowsecurity.html)
 
@@ -233,6 +233,7 @@ Postgres Changes ใช้การตรวจสิทธิ์ตามผู
 
 **เป้าหมาย:** ทีมที่ได้รับเชิญใช้งานบน staging/pilot ได้ พร้อมดูแลและกู้คืนระบบ
 
+- [ ] ยืนยัน SMTP ภายนอก/TLS/sender/delivery และ production app callback/origin allowlists ที่แยกจาก local acceptance ของ Phase 3
 - [ ] ตั้ง TLS, network boundaries, rate limits, resource quotas และจำกัด project provisioning ตามขนาดเครื่อง
 - [ ] จัดทำ release pipeline, migration rehearsal และ rollback/roll-forward runbook
 - [ ] ทำ backup ฐานข้อมูลและ object storage; กู้คืนลง environment ใหม่และตรวจความสอดคล้องกับ metadata

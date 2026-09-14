@@ -1,6 +1,6 @@
 # ADR 0006 — Opt-in project Auth hardening
 
-Date: 2026-09-14 · Status: implemented locally; acceptance gates remain in Phase 3 report
+Date: 2026-09-14 · Status: accepted for local development; deployment limits remain in Phase 3 report
 
 ## Context
 
